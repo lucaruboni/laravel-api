@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use \Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderByDesc('id')->paginate(8);
+        $projects = Auth::user()->projects()->orderByDesc('id')->paginate(8);
 
         return view('admin.projects.project', compact('projects'));
     }
@@ -53,6 +54,7 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($val_data['title']);
         //dd($slug);
         $val_data['slug'] = $slug;
+        $val_data['user_id'] = Auth::id();
 
         // Create the new Post
         $new_project = Project::create($val_data);
@@ -87,7 +89,11 @@ class ProjectController extends Controller
     {
         $types = Type::orderByDesc('id')->get();
         $technologies = Technology::orderByDesc('id')->get();
-        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
+
+        if (Auth::id() === $project->user_id) {
+            return view('admin.projects.edit', compact('project', 'types', 'technologies'));
+        }
+        abort(403);
         
 
     }

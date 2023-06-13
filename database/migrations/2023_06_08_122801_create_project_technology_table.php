@@ -22,7 +22,7 @@ return new class extends Migration
           // Add tag_id column
           $table->unsignedBigInteger('technology_id');
           // Add foreign key
-          $table->foreign('technology_id')->references('id')->on('technologys')->cascadeOnDelete();
+          $table->foreign('technology_id')->references('id')->on('technologies')->cascadeOnDelete();
 
           // Add primary key
           $table->primary(['project_id', 'technology_id']);

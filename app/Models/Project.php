@@ -14,7 +14,7 @@ class Project extends Model
     use HasFactory;
 
     
-    protected $fillable = ['title', 'content', 'cover_image', 'slug', 'type_id'];
+    protected $fillable = ['title', 'content', 'cover_image', 'slug', 'type_id', 'user_id'];
 
     public static function generateSlug($title)
     {
@@ -34,5 +34,10 @@ class Project extends Model
     public function technologies(): BelongsToMany
     {
         return $this->belongsToMany(Technology::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
