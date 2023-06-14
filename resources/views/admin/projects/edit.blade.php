@@ -5,7 +5,7 @@
     @include('partials.validation_errors')
     <h1> {{$project->title}} Editing</h1>
 
-    <form action="{{route('admin.projects.update', $project->id)}}" method="post" class="pb-5">
+    <form action="{{route('admin.projects.update', $project->id)}}" method="post" class="pb-5" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -20,18 +20,22 @@
 
         </div>
 
-        <div class="mb-3">
-            <label for="image" class="form-label">image</label>
-            <input type="text" name="image" id="image" class="form-control @error('image') is-invalid @enderror" placeholder="https://" aria-describedby="imageHelper" value="{{$project->image}}">
-            <small id="imageHelper" class="text-muted">Type the project image max: 200 characters</small>
-            @error('image')
-            <div class="alert alert-danger" role="alert">
-                <strong>Image, error :</strong>{{$message}}
+
+        <div class="d-flex gap-3">
+            
+        <img src="{{asset('storage/' . $project->cover_image)}}" width="100" alt="">
+
+            <div class="mb-3">
+                <label for="cover_image" class="form-label">Replace Image</label>
+                <input type="file" class="form-control @error('cover_image') is-invalid @enderror" name="cover_image" id="cover_image" aria-describedby="cover_imageHelper" placeholder="Learn php">
+                <small id="cover_imageHelper" class="form-text text-muted">Type the post cover_image max *kb</small>
+                @error('image')
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Image, error :</strong>{{$message}}
+                    </div>
+                    @enderror
             </div>
-            @enderror
         </div>
-
-
 
 
 

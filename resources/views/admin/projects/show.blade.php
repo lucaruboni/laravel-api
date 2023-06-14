@@ -6,7 +6,7 @@
     <div class="row py-5">
         <div class="col ">
         
-            <img src="{{$project->cover_image}}" class="img-fluid" alt="{{$project->title}}">
+            <img src="{{asset('storage/' . $project->cover_image)}}" class="img-fluid" alt="{{$project->title}}">
            
         </div>
 

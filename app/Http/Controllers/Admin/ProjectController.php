@@ -7,6 +7,7 @@ use App\Models\Type;
 use App\Models\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use \Illuminate\Http\Request;
@@ -55,6 +56,12 @@ class ProjectController extends Controller
         //dd($slug);
         $val_data['slug'] = $slug;
         $val_data['user_id'] = Auth::id();
+
+
+        if ($request->hasFile('cover_image')) {
+            $image_path = Storage::put('uploads', $request->cover_image);
+            $val_data['cover_image'] = $image_path;
+        }
 
         // Create the new Post
         $new_project = Project::create($val_data);
@@ -111,6 +118,16 @@ class ProjectController extends Controller
 
         $project->update($val_data);
 
+        if ($request->hasFile('cover_image')) {
+
+            if ($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+
+            $image_path = Storage::put('uploads', $request->cover_image);
+            $val_data['cover_image'] = $image_path;
+        }
+
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->technologies);
         }
@@ -126,6 +143,12 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        
+        if ($project->cover_image) {
+            Storage::delete($project->cover_image);
+        }
+        
         $project->delete();
         return to_route('admin.projects.index')->with('message', 'project deleted');
     }

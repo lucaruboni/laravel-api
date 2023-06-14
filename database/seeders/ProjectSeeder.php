@@ -24,7 +24,8 @@ class ProjectSeeder extends Seeder
             $Project->title = $faker->sentence(3);
             $Project->slug = Str::slug($Project->title, '-'); // 👈  Use me to generate a slug
             $Project->content = $faker->paragraphs(asText: true); 
-            $Project->cover_image = $faker->imageUrl(category: 'Posts', format: 'jpg');
+            $Project->user_id = 1;
+            $Project->cover_image = 'uploads/' . $faker->image('storage/app/public/uploads/', fullPath: false, category: 'Projects', format: 'jpg', word: $Project->title, gray: true);
             $Project->save();
         }
     }
