@@ -29,7 +29,7 @@
             <tr class="table-primary">
                 <td scope="row">{{$project->id}}</td>
                 <td>
-                    <img height="100" src="{{ asset('storage/' . $project->cover_image)}}" alt="{{$project->title}}">
+                    <img width="180" src="{{ asset('storage/' . $project->cover_image)}}" alt="{{$project->title}}">
                 </td>
                 <td>{{$project->title}}</td>
                 <td>{{$project->slug}}</td>
