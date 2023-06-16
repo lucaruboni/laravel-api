@@ -14,7 +14,22 @@
             <h1>{{$project->title}}</h1>
             <div> <strong>Content: </strong>{{$project->content}}</div>
             <div> <strong>type: </strong>{{$project->type->name}}</div>
+
             
+          
+            <h6><strong>Technologies:</strong></h6>
+                  <ul>
+                
+                    @forelse ($project->technologies as $technology)
+                    
+                    <li>  {{ $technology->name }}</li>
+                    @empty
+                      <div><strong>Technology:</strong> n/a</div>
+                    @endforelse
+                  <ul>
+             
+          
+          
             </div>
                        
         </div>

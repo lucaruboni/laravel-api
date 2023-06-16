@@ -67,7 +67,7 @@
                             <li class="nav-item">
                                 <a class="nav-link " href="{{route('admin.type.index')}}">
                                     <i class="fa-solid fa-bookmark"></i>
-                                   {{ __('Categories')}}
+                                   {{ __('Type')}}
                                 </a>
                             </li>
                             <li class="nav-item">

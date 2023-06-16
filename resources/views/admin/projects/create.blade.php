@@ -22,6 +22,13 @@
         <small id="cover_imageHelper" class="form-text text-muted">Type the post cover_image max 150 characters - must be unique</small>
     </div>
 
+    
+    <div class="mb-3">
+        <label for="github_link" class="form-label">Github Link</label>
+        <input type="text" class="form-control @error('github_link') is-invalid @enderror" name="github_link" id="github_link" aria-describedby="github_linkHelper" placeholder="Learn php">
+        <small id="github_linkHelper" class="form-text text-muted">Type the post github_link max 255 characters</small>
+    </div>
+
     <div class="mb-3">
         <label for="content" class="form-label">Content</label>
         <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" rows="3"></textarea>
