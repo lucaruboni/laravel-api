@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Lead;
+use App\Mail\NewLeadMarkdown;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//Mailable
+Route::get ('/mailable', function(){
+    $lead = Lead::find(1);
+    //print also the markdown template
+    return new NewLeadMarkdown($lead);
 });
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
